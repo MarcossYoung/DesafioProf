@@ -30,7 +30,18 @@ public ShopService(ShopRepo ShopRepo1){
      return shopRepo.findByShopId(id);
     }
 
+    public void editar(Long id, Shop shop) {
+        Shop exsistingShop = shopRepo.findById(id).orElse(null);
+        if (exsistingShop != null) {
+           exsistingShop.setTitulo(shop.getTitulo());
+            exsistingShop.setBio(shop.getBio());
+            exsistingShop.setPrecio(shop.getPrecio());
+            shopRepo.save(shop);
+        }
+    }
+
 
 
     public void borrar(Long id) {shopRepo.delete(shopRepo.findByShopId(id));}
+
 }

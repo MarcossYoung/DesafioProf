@@ -6,60 +6,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Objects;
-import java.util.Optional;
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/shop")
 public class ShopController {
-
+    @Autowired
     private ShopService shopService;
 
-    @Autowired
-    public ShopController(ShopService ps){this.shopService = ps;}
-
-
-    @PostMapping("/crearPac")
-    public ResponseEntity<Shop> crearShop(@RequestBody Shop p){
-       return ResponseEntity.ok(shopService.guardar(p));
+    @GetMapping
+    public String getAllShops(Model model) {
+        List<Shop> shops = shopService.listarTodos();
+        model.addAttribute("shops", shops);
+        return "products";
+    }
+    @GetMapping("/crear")
+    public String createShopForm(Model model) {
+        model.addAttribute("shop", new Shop());
+        return "crearShop";
     }
 
-    @GetMapping("/{dni}")
-    public ResponseEntity<Shop> shop(@PathVariable Integer id){
-        Shop pac = shopService.buscar(id);
-        if(Objects.nonNull(pac)){
-            return ResponseEntity.ok(pac);
-
-        }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+    @GetMapping("/{id}")
+    public String getShop(@PathVariable Long id, Model model) {
+        Shop shop = shopService.buscar(id);
+        model.addAttribute("shop", shop);
+        return "productDetail";
     }
 
-    @PutMapping("/{dni}")
-    public ResponseEntity<Shop> updatePac( @RequestBody Shop p ){
-        Shop pac= shopService.buscar(p.getId());
-
-        if(Objects.isNull(pac)){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }else{
-            return ResponseEntity.ok(shopService.guardar(pac));
-
-        }
+    @GetMapping("/edit/{id}")
+    public String editShopForm(@PathVariable Long id, Model model) {
+        Shop shop = shopService.buscar(id);
+        model.addAttribute("shop", shop);
+        return "editProduct";
+    }
+    @PostMapping("/edit/{id}")
+    public String editShop(@PathVariable Long id, @ModelAttribute Shop shop) {
+        shopService.editar(id, shop);
+        return "redirect:/shops";
+    }
+    @GetMapping("/delete/{id}")
+    public String deleteShop(@PathVariable Long id) {
+        shopService.borrar(id);
+        return "redirect:/shops";
+    }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> borrarPac(@PathVariable Integer id){
-        Shop pac = shopService.buscar(id);
 
-        if(Objects.isNull(pac)){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }else{
-            shopService.borrar(pac.getId());
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Eliminado");
-
-        }
-    }
-
-}

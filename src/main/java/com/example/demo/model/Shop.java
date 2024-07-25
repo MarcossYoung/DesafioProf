@@ -22,7 +22,7 @@ private Set<AppUser> owner = new HashSet<>();
 private String bio;
 
 @Column(name = "precio")
-private Integer precio;
+private Double precio;
 
 @Column(name = "foto1")
 private String foto1;
@@ -46,7 +46,67 @@ private String foto1;
         this.id = id;
     }
 
+    public String getTitulo() {
+        return titulo;
+    }
 
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
 
+    public Set<AppUser> getOwner() {
+        return owner;
+    }
 
+    public void setOwner(Set<AppUser> owner) {
+        this.owner = owner;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    public String getFoto1() {
+        return foto1;
+    }
+
+    public void setFoto1(String foto1) {
+        this.foto1 = foto1;
+    }
+
+    public String getFoto2() {
+        return foto2;
+    }
+
+    public void setFoto2(String foto2) {
+        this.foto2 = foto2;
+    }
+
+    public String getFoto3() {
+        return foto3;
+    }
+
+    public void setFoto3(String foto3) {
+        this.foto3 = foto3;
+    }
+
+    public String getFoto4() {
+        return foto4;
+    }
+
+    public void setFoto4(String foto4) {
+        this.foto4 = foto4;
+    }
 }
