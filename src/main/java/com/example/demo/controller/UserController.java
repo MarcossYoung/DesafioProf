@@ -3,11 +3,10 @@ package com.example.demo.controller;
 import com.example.demo.model.AppUser;
 import com.example.demo.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/users")
 public class UserController {
 
@@ -15,23 +14,24 @@ public class UserController {
     private AppUserService appUserService;
 
     @PostMapping("/registro")
-    public String registro(@ModelAttribute AppUser user) {
-        appUserService.registerUser(user);
-        return "redirect:/login";
+    public ResponseEntity<AppUser> registro(@RequestBody AppUser user) {
+        AppUser regUser = appUserService.registerUser(user);
+        return ResponseEntity.ok(regUser);
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute AppUser user) {
+    public ResponseEntity<Void> login(@ModelAttribute AppUser user) {
         if (appUserService.loginUser(user)) {
-            return "redirect:/profile";
+            return ResponseEntity.ok().build();
+
         } else {
-            return "login";
+            return ResponseEntity.status(401).build();
+
         }
     }
 
     @GetMapping("/{id}")
-    public String getUser(@PathVariable Long id, Model model) {
-        model.addAttribute("user", appUserService.getUserById(id));
-        return "profile";
+    public ResponseEntity<AppUser> getUser(@RequestParam Long id) {
+        return ResponseEntity.ok(appUserService.getUserById(id));
     }
     }

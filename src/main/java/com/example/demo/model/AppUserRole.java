@@ -1,5 +1,5 @@
 package com.example.demo.model;
 
 public enum AppUserRole {
-    USER,ADMIN,OWNER
+    USER,ADMIN
 }

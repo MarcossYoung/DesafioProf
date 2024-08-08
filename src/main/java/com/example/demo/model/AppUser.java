@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -33,6 +34,13 @@ public class AppUser implements UserDetails {
         this.appUserRole = appUserRole;
     }
 
+    @OneToMany(mappedBy = "owner")
+    private Set<Product> products;
+
+    public AppUser() {
+
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority(appUserRole.name());
@@ -40,14 +48,47 @@ public class AppUser implements UserDetails {
         return Collections.singletonList(grantedAuthority);
     }
 
-    @Override
-    public String getPassword() {
-        return password;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String getUsername() {
         return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public AppUserRole getAppUserRole() {
+        return appUserRole;
+    }
+
+    public void setAppUserRole(AppUserRole appUserRole) {
+        this.appUserRole = appUserRole;
     }
 
     @Override

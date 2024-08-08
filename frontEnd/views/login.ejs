@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<%- include('./partials/head') %>
+
+		<title>Login</title>
+	</head>
+	<body>
+		<header><%- include('partials/header') %></header>
+
+			<div
+				class="
+					container
+					text-center
+					product-wrapper
+					box-shadow
+					background_amarillo
+				"
+			>
+				<h1 class="main-title">Login</h1>
+				<div class="form-input" id="loginForm">
+					<label for="username">Username</label>
+                            <input type="text" id="username" name="username" required>
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required>
+                            <button type="submit">Login</button>
+					</div>
+					<p>no tenes ususario?</p>
+
+					<form>
+						<a href="/users/registro">Registrate ahora!</a>
+					</form>
+				</div>
+			</div>
+		</form>
+		<%- include('./partials/footer') %>
+				<script defer src="/js/loginValidation.js"></script>
+		<script defer src="/js/usersControllers.js"></script>
+
+	</body>
+</html>
