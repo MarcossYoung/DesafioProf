@@ -1,40 +1,44 @@
-const express = require('express');
-const path = require('path');
-const app = express();
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import axios from 'axios';
 
-// Set the view engine to ejs
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+import Home from './views/Home';
+import Register from './views/Register';
+import Login from './views/Login';
+import ProductCreation from './views/ProductCreateForm';
+import Profile from './views/Profile';
 
-// Middleware to serve static files
-app.use(express.static(path.join(__dirname, 'public')));
+function App() {
+  const [user, setUser] = useState(null);
 
-// Routes
-app.get('/', (req, res) => {
-    res.render('home');
-});
+  useEffect(() => {
+    // Fetch current logged-in user if session exists
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get('/api/users/{id}'); // Replace with your actual endpoint
+        setUser(response.data);
+      } catch (error) {
+        console.log('No user logged in');
+      }
+    };
 
-app.get('/users/login', (req, res) => {
-    res.render('login');
-});
-app.get('/users/registro', (req, res) => {
-    res.render('registro');
-});
+    fetchUser();
+  }, []);
 
-app.get('/profile', (req, res) => {
-    res.render('profile');
-});
+  return (
+    <Router>
+      <div>
+        <Navbar user={user} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login setUser={setUser} />} />
+          <Route path="/create-product" element={user ? <ProductCreation user={user} /> : <Login setUser={setUser} />} />
+          <Route path="/profile" element={user ? <Profile user={user} /> : <Login setUser={setUser} />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
 
-app.get('/products', (req, res) => {
-    res.render('productsAll');
-});
-app.get('/productDetail', (req, res) => {
-    res.render('productsDetail');
-});app.get('/productsEdit/:id', (req, res) => {
-       res.render('productsEditForm');
-   });
-
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+export default App;
