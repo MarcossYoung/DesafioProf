@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -33,7 +34,7 @@ public ProductService(ProductRepo ProductRepo1){
     return productRepo.findAll();}
 
     public Product buscar(long id) throws RuntimeException {
-     return productRepo.findByProductId(id);
+     return productRepo.findByProductId(id).orElse(null);
     }
 
     public void editar(Long id, Product product) {
@@ -48,7 +49,8 @@ public ProductService(ProductRepo ProductRepo1){
 
 
 
-    public void borrar(Long id) {productRepo.delete(productRepo.findByProductId(id));}
+    public boolean borrar(Long id) {productRepo.delete(productRepo.findByProductId(id).get());
+    return true;}
 
     public String saveFile(MultipartFile file) throws IOException {
         String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();

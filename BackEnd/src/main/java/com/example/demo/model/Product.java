@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Product {
     @Id
     @SequenceGenerator(name = "prodID",sequenceName = "prodSequence",allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
 @Column(name = "titulo")
@@ -40,7 +40,7 @@ private String foto1;
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
