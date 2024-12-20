@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/DesafioProf.iml" filepath="$PROJECT_DIR$/.idea/DesafioProf.iml" />
-      <module fileurl="file://$PROJECT_DIR$/BackEnd/clinica-odontologica.iml" filepath="$PROJECT_DIR$/BackEnd/clinica-odontologica.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BackEnd/appedal.iml" filepath="$PROJECT_DIR$/BackEnd/appedal.iml" />
     </modules>
   </component>
 </project>

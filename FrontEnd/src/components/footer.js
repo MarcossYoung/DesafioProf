@@ -3,7 +3,7 @@ import React from 'react';
 const Footer = () => {
   return (
     <footer>
-      {/* Axios Script */}
+      {}
       <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
       <div className="row">

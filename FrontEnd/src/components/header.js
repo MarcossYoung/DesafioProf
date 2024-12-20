@@ -5,6 +5,7 @@ import { UserContext } from '../UserProvider';
 const Header = () => {
   const { user } = useContext(UserContext);
 
+
   return (
     <header className="background_amarillo zindex-1">
       <div>
@@ -23,17 +24,17 @@ const Header = () => {
 
       <nav className="navbar  no-wrap">
         <ul className="ul-md">
-          <li><Link className="quienes" to="/">Quiénes Somos</Link></li>
-          <li><Link to="/api/products">Productos</Link></li>
+          <li><Link to="/">Quiénes Somos</Link></li>
+          <li><Link to="/products">Productos</Link></li>
 
 
           {!user ? (
             <>
-              <li className="floatR"><Link to="/api/users/login">Login</Link></li>
-              <li className="floatR"><Link to="/api/users/registro">Registro</Link></li>
+              <li className="floatR"><Link to="/login">Login</Link></li>
+              <li className="floatR"><Link to="/registro">Registro</Link></li>
             </>
           ) : (
-            <li className="floatR"><Link to="/api/users/profile">Perfil</Link></li>
+            <li className="floatR"><Link to={`/profile/${user.id}`}>Perfil</Link></li>
           )}
         </ul>
       </nav>

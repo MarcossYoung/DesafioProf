@@ -2,11 +2,13 @@ package com.example.demo.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -112,6 +114,14 @@ public class AppUser implements UserDetails {
     }
 
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "AppUser{" +
@@ -123,5 +133,7 @@ public class AppUser implements UserDetails {
                 ", appUserRole=" + appUserRole +
                 '}';
     }
+
+
 }
 

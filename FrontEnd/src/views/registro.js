@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 const Register = () => {
+const navigate = useNavigate();
   const [userData, setUserData] = useState({
-first_name: '',
-last_name: '',
+    name: '',
     username: '',
     email: '',
     password: '',
@@ -26,13 +28,13 @@ last_name: '',
     }
 
     try {
-      const response = await axios.post('http://localhost:8080/api/users/registro', {
-        name: userData.first_name+' '+ userData.last_name,
+      const response = await axios.post('/api/users/registro', {
+        name: userData.name,
         username: userData.username,
         email: userData.email,
         password: userData.password,
       });
-      setResponseMessage('User registered successfully!');
+      navigate('/login')
     } catch (error) {
       setResponseMessage('Error registering user.');
       console.error(error);
@@ -45,14 +47,10 @@ last_name: '',
        <form onSubmit={handleSubmit}>
          <div className="form-input">
            <label className="main-label" htmlFor="first_name">Nombre </label>
-           <input id="first_name" type="text" name="first_name" value={userData.first_name} onChange={handleChange} required />
+           <input id="name" type="text" name="name" value={userData.name} onChange={handleChange} required />
          </div>
          <div className="form-input">
-           <label className="main-label" htmlFor="last_name">Apellido </label>
-           <input id="last_name" type="text" name="last_name" value={userData.last_name} onChange={handleChange} required />
-         </div>
-         <div className="form-input">
-           <label className="main-label" htmlFor="username">Nombre de usuario </label>
+           <label className="main-label" htmlFor="username">usuario </label>
            <input id="username" type="text" name="username" value={userData.username} onChange={handleChange} required />
          </div>
          <div className="form-input">

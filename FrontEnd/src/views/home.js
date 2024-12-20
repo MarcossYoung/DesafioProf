@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from '../components/header';  // Header Component
-import Footer from '../components/footer';  // Footer Component
 
 const Home = () => {
   return (
@@ -8,6 +7,7 @@ const Home = () => {
       <header className="fixed">
         <Header />
       </header>
+
       <main className="paddingtop-10vh">
         <img src="/img/bannerhome.png" alt="Home banner" width="100%" />
 
@@ -25,7 +25,6 @@ const Home = () => {
           />
         </div>
       </main>
-      <Footer />
 
       <a
         href="https://api.whatsapp.com/send?l=es&amp;phone=5491158229190&amp;text=Hola, me gustaría recibir información..."

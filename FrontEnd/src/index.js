@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import UserProvider from './UserProvider';
-import App from './App';
+import App from './app';
 import './css/boxes.css';
 import './css/normalize.css';
 import './css/styles.css';
