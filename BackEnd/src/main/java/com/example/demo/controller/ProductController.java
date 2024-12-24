@@ -169,4 +169,9 @@ public class ProductController {
     public ResponseEntity<List<ProductType>> getAllProductTypes() {
         return ResponseEntity.ok(Arrays.asList(ProductType.values()));
     }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<Product>> getByOwnerID(AppUser owner){
+        return ResponseEntity.ok(productService.findByOwner(owner));
+    }
 }

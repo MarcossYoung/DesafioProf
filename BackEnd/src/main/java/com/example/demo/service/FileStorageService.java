@@ -15,7 +15,7 @@ public class FileStorageService {
     private static final String UPLOAD_DIR = "FrontEnd/public/imgProductos";
 
     public String saveFile(MultipartFile file) throws IOException {
-        String fileName = file.getOriginalFilename();
+        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
         Path uploadPath = Paths.get(UPLOAD_DIR);
 
         if (!Files.exists(uploadPath)) {

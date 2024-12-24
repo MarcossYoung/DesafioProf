@@ -10,6 +10,8 @@ const ProductCreation = () => {
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
   const [rentTypes, setRentTypes] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
+
 
   const [productData, setProductData] = useState({
     titulo: "",
@@ -60,11 +62,16 @@ const ProductCreation = () => {
   };
 
   const handleImageChange = (e) => {
-    const { name, files } = e.target;
-    setImages((prevImages) => ({
-      ...prevImages,
-      [name]: files[0],
-    }));
+      const { name } = e.target;
+      const file = e.target.files[0];
+      console.log(file)
+
+      if (file) {
+          setImages((prevImages) => ({
+              ...prevImages,
+              [name]: file,
+          }));
+      }
   };
 
   const handleSubmit = async (e) => {
@@ -101,6 +108,7 @@ const ProductCreation = () => {
       setError("Failed to create the product. Please try again.");
     }
   };
+
 
   return (
     <div className="product-creation">
@@ -228,16 +236,12 @@ const ProductCreation = () => {
           />
         </div>
 
-        {["foto1", "foto2", "foto3", "foto4"].map((foto, index) => (
-          <div key={foto}>
-            <label>Product Image {index + 1}</label>
-            <input
-              type="file"
-              name={foto}
-              onChange={handleImageChange}
-            />
-          </div>
-        ))}
+          {["foto1", "foto2", "foto3", "foto4"].map((foto, index) => (
+                  <div key={index}>
+                    <label>Product Image {index + 1}</label>
+                    <input type="file" name={foto} onChange={handleImageChange} />
+                  </div>
+                ))}
 
         <button type="submit" disabled={!productData.titulo || !productData.precio}>
           Create Product

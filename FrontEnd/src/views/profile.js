@@ -23,7 +23,9 @@ const UserProfile = ({ userId }) => {
     }
 
     // Fetch user's products
-    axios.get(`/api/products?ownerId=${userId}`)
+    const userId = user.id;
+    const ownerId = productos.ownerId;
+    axios.get(`/api/products/{user}`)
       .then(response => setProductos(response.data.content || response.data))
       .catch(error => console.error('Error fetching products:', error));
   }, [userId, setUser]);
@@ -69,6 +71,8 @@ useEffect(() => {
 
   if (!user) return <p>Loading...</p>;
 
+
+
   return (
     <div className="profile-container">
       <div className="flex">
@@ -79,6 +83,9 @@ useEffect(() => {
           <div className="flex text-align">
             <button className="button_1" onClick={handleLogOut}>Log Out</button>
             <button className="button_2" onClick={handleDeleteUser}>Eliminar Usuario</button>
+                    {user.role === "ADMIN" && (
+            <button className="button_2" onClick={()=> navigate('/admin')}>Admin Page</button>
+            )}
           </div>
         </div>
       </div>
@@ -97,7 +104,7 @@ useEffect(() => {
                   <div>
                     <img
                       className="imgs center w-85 article-img"
-                      src={`/imgProductos/${prod.foto1}`}
+                      src={prod.foto1}
                       alt={prod.titulo}
                       style={{ maxWidth: '100px' }}
                     />
@@ -128,7 +135,7 @@ useEffect(() => {
                    <div>
                      <img
                        className="imgs center w-85 article-img"
-                       src={`/imgProductos/${fav.foto1}`}
+                       src={fav.foto1}
                        alt={fav.titulo}
                        style={{ maxWidth: '100px' }}
                      />

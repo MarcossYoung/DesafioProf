@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import com.example.demo.model.AppUser;
 import com.example.demo.model.Product;
 import com.example.demo.model.ProductCategory;
 import com.example.demo.model.ProductType;
@@ -33,5 +34,6 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
     Page<Product> searchByTitleOrDescription(@Param("query") String query, Pageable pageable);
 
 
+    List<Product> findByOwner(AppUser owner);
 }
 

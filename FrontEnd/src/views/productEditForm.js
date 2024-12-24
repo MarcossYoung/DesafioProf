@@ -85,7 +85,7 @@ const EditProduct = () => {
       <article className="product flex box-shadow bg-white">
         <img
           className="imgs w-35"
-          src={`/imgProductos/${product.imagen}`}
+          src={product.imagen}
           alt={product.producto}
           width="200px"
         />

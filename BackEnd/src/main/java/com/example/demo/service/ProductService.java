@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.exceptions.ResourceNotFoundException;
+import com.example.demo.model.AppUser;
 import com.example.demo.model.Product;
 import com.example.demo.model.ProductCategory;
 import com.example.demo.model.ProductType;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -93,4 +95,7 @@ public class ProductService {
         return productRepo.searchByTitleOrDescription(query, pageable);
     }
 
+    public List<Product> findByOwner(AppUser owner) {
+        return productRepo.findByOwner(owner);
+    }
 }
