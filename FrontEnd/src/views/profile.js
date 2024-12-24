@@ -6,7 +6,6 @@ import { UserContext } from '../UserProvider';
 
 const UserProfile = ({ userId }) => {
   const { user, setUser } = useContext(UserContext);
-  const [productos, setProductos] = useState([]);
   const navigate = useNavigate();
   const [favoritos, setFavoritos] = useState([]);
   const [loadingFavorites, setLoadingFavorites] = useState(true);
@@ -21,13 +20,6 @@ const UserProfile = ({ userId }) => {
         .then(response => setUser(response.data))
         .catch(error => console.error('Error fetching user:', error));
     }
-
-    // Fetch user's products
-    const userId = user.id;
-    const ownerId = productos.ownerId;
-    axios.get(`/api/products/{user}`)
-      .then(response => setProductos(response.data.content || response.data))
-      .catch(error => console.error('Error fetching products:', error));
   }, [userId, setUser]);
 
 
@@ -89,40 +81,9 @@ useEffect(() => {
           </div>
         </div>
       </div>
-      <h1>Tus Productos</h1>
        <h2 className="flex text-align">
                   <Link to ={`/products/create`}>Crear Producto</Link>
                 </h2>
-      <div className="products-container flex">
-      {productos && productos.length > 0 ? (
-        productos.map((prod) => (
-
-          <div key={prod.id} className="product-wrapper flex box-shadow margin-1 text-align ">
-            <article className="prodAll">
-              <Link to={`/products/${prod.id}`}>
-                <div className="product-content zindex-1">
-                  <div>
-                    <img
-                      className="imgs center w-85 article-img"
-                      src={prod.foto1}
-                      alt={prod.titulo}
-                      style={{ maxWidth: '100px' }}
-                    />
-                  </div>
-                  <p className="style-h4">{prod.titulo}</p>
-                  <p className="descripciones">{prod.bio}</p>
-                  <p className="precios">Precio: ${prod.precio}</p>
-                </div>
-              </Link>
-             <button className="button_1 marginleft-10" onClick={() => navigate(`/edit/${prod.id}`)}>Editar</button>
-            </article>
-
-          </div>
-        ))
-      ) : (
-        <p>No products found.</p>
-      )}
-     </div>
      <h1>Tus Favoritos</h1>
      <div className="products-container flex">
      {loadingFavorites ? ( <p>Loading favorites...</p>
